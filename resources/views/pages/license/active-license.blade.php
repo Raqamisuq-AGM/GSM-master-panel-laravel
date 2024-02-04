@@ -3,157 +3,95 @@
     {{ 'Active license' }}
 @endsection
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Active License</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Active licence</li>
-                        </ol>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
 
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-
-                        <div class="card">
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Thumb</th>
-                                            <th>Product</th>
-                                            <th>Avatar</th>
-                                            <th>Full Name</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>15968</td>
-                                            <td>
-                                                <img src="{{ asset('dist/img/user2-160x160.jpg') }}"
-                                                    class="img-circle elevation-2" alt="User Image"
-                                                    style="width: 50px;
-                                                    height: 50px;
-                                                    border-radius: 50%;
-                                                    overflow: hidden;">
-                                            </td>
-                                            <td>this is demo product</td>
-                                            <td>
-                                                <img src="{{ asset('dist/img/user2-160x160.jpg') }}"
-                                                    class="img-circle elevation-2" alt="User Image"
-                                                    style="width: 50px;
-                                                height: 50px;
-                                                border-radius: 50%;
-                                                overflow: hidden;">
-                                            </td>
-                                            <td>sub demo</td>
-                                            <td>active</td>
-                                            <td class="d-flex">
-                                                <a href="{{ route('license.edit', ['id' => '2']) }}"
-                                                    style="margin-right:20px; color:#000">
-                                                    <i class="fas fa-pen"></i>
-                                                </a>
-                                                <a href="{{ route('license.view', ['id' => '2']) }}"
-                                                    style="margin-right:20px; color:#000">
-                                                    <i class="far fa-eye"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Thumb</th>
-                                            <th>Product</th>
-                                            <th>Avatar</th>
-                                            <th>Full Name</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-                    <!-- /.col -->
+        <!-- Bordered Table -->
+        <div class="card">
+            <h5 class="card-header">Active License</h5>
+            <div class="card-body">
+                <div class="table-responsive text-nowrap">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Thumb</th>
+                                <th>Product</th>
+                                <th>Avatar</th>
+                                <th>Full Name</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="fw-medium">15995</span>
+                                </td>
+                                <td>
+                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
+                                            class="avatar avatar-xs pull-up" title="Lilian Fuller">
+                                            <img src="{{ asset('assets/img/avatars/5.png') }}" alt="Avatar"
+                                                class="rounded-circle" />
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>this is demo product</td>
+                                <td>
+                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
+                                            class="avatar avatar-xs pull-up" title="Lilian Fuller">
+                                            <img src="{{ asset('assets/img/avatars/5.png') }}" alt="Avatar"
+                                                class="rounded-circle" />
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>shazib ahmed</td>
+                                <td>
+                                    <span class="badge bg-label-primary me-1">Active</span>
+                                </td>
+                                <td class="d-flex">
+                                    <a href="{{ route('license.edit', ['id' => '1']) }}" style="margin-right: 15px">
+                                        <i class="bx bx-edit-alt me-1"></i>
+                                    </a>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#deleteItem">
+                                        <i class="bx bx-trash me-1"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /.container-fluid -->
-        </section>
-        <!-- /.content -->
+        </div>
+        <!--/ Bordered Table -->
+
+        <!-- Delete Item Modal -->
+        <div class="modal fade" id="deleteItem" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-simple modal-enable-otp modal-dialog-centered">
+                <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="text-center mb-4">
+                            <h3 class="mb-5">Delete this item</h3>
+                        </div>
+                        <form id="deleteItemForm" class="row g-3" onsubmit="return false">
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary me-sm-3 me-1">
+                                    Yes
+                                </button>
+                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ Delete Item Modal -->
     </div>
-    <!-- /.content-wrapper -->
-@endsection
-
-@section('styles')
-    <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-@endsection
-
-@section('scripts')
-    <!-- jQuery -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- DataTables  & Plugins -->
-    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('dist/js/demo.js') }}"></script>
-    <!-- Page specific script -->
-    <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        });
-    </script>
+    <!-- / Content -->
 @endsection
