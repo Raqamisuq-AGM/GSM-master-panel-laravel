@@ -33,19 +33,10 @@
                                 <td>
                                     <span class="badge bg-label-warning me-1">pending</span>
                                 </td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                    class="bx bx-edit-alt me-1"></i> Edit</a>
-                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                    class="bx bx-trash me-1"></i> Delete</a>
-                                        </div>
-                                    </div>
+                                <td class="d-flex">
+                                    <a href="{{ route('ticket.view', ['id' => '1']) }}">
+                                        <i class="bx bx-show mx-1"></i>
+                                    </a>
                                 </td>
                             </tr>
                         </tbody>

@@ -124,6 +124,8 @@
             ],
         });
     </script>
+
+    @yield('style')
   </head>
 
   <body>
@@ -196,5 +198,7 @@
     <!-- BEGIN: Page JS-->
     <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
     <!-- END: Page JS-->
+
+    @yield('scripts')
   </body>
 </html>

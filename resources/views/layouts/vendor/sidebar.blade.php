@@ -169,7 +169,7 @@
         </li>
 
         <li
-            class="menu-item {{ request()->routeIs('user.all', 'user.active', 'user.pending', 'user.suspended', 'user.edit', 'user.update') ? 'active open' : '' }}">
+            class="menu-item {{ request()->routeIs('user.all', 'user.view', 'user.active', 'user.pending', 'user.suspended', 'user.edit', 'user.update') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-user'></i>
                 <div class="text-truncate">Users</div>
@@ -200,7 +200,7 @@
         </li>
 
         <li
-            class="menu-item {{ request()->routeIs('invoice.all', 'invoice.paid', 'invoice.pending') ? 'active open' : '' }}">
+            class="menu-item {{ request()->routeIs('invoice.all', 'invoice.paid', 'invoice.pending', 'invoice.view') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-receipt'></i>
                 <div class="text-truncate">Invoice</div>
@@ -226,7 +226,7 @@
         </li>
 
         <li
-            class="menu-item {{ request()->routeIs('ticket.all', 'ticket.answered', 'ticket.pending', 'ticket.closed') ? 'active open' : '' }}">
+            class="menu-item {{ request()->routeIs('ticket.all', 'ticket.answered', 'ticket.pending', 'ticket.closed', 'ticket.view') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-support'></i>
                 <div class="text-truncate">Support ticket</div>

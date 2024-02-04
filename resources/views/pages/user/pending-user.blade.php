@@ -44,19 +44,10 @@
                                 <td>
                                     <span class="badge bg-label-warning me-1">Pending</span>
                                 </td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                    class="bx bx-edit-alt me-1"></i> Edit</a>
-                                            <a class="dropdown-item" href="javascript:void(0);"><i
-                                                    class="bx bx-trash me-1"></i> Delete</a>
-                                        </div>
-                                    </div>
+                                <td class="d-flex">
+                                    <a href="{{ route('user.view', ['id' => '1']) }}" style="margin-right: 15px">
+                                        <i class="bx bx-show mx-1"></i>
+                                    </a>
                                 </td>
                             </tr>
                         </tbody>
@@ -65,6 +56,32 @@
             </div>
         </div>
         <!--/ Bordered Table -->
+
+        <!-- Delete Item Modal -->
+        <div class="modal fade" id="deleteItem" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-simple modal-enable-otp modal-dialog-centered">
+                <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="text-center mb-4">
+                            <h3 class="mb-5">Delete this item</h3>
+                        </div>
+                        <form id="deleteItemForm" class="row g-3" onsubmit="return false">
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary me-sm-3 me-1">
+                                    Yes
+                                </button>
+                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ Delete Item Modal -->
     </div>
     <!-- / Content -->
 @endsection
