@@ -92,6 +92,37 @@
                         </div>
                     </div>
                     <!-- /Media -->
+                    <!-- SEO Information -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-tile mb-0">SEO</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label" for="author">Author</label>
+                                <input type="text" class="form-control" id="author" placeholder="shazib"
+                                    name="author" aria-label="Author" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="title_slogan">Title</label>
+                                <input type="text" class="form-control" id="title_slogan" placeholder="Title"
+                                    name="productTitle" aria-label="Title/Slogan" />
+                            </div>
+                            <!-- Description -->
+                            <div>
+                                <label class="form-label">Meta Description</label>
+                                <textarea class="form-control" aria-label="With textarea" data-gramm="false" wt-ignore-input="true"
+                                    data-quillbot-element="BRMw-EL30SE9sNAVLeCFM"></textarea>
+                            </div>
+                            <!-- Tags -->
+                            <div class="mb-3 mt-3">
+                                <label for="ecommerce-product-tags" class="form-label mb-1">Keywords</label>
+                                <input id="ecommerce-product-tags" class="form-control" name="ecommerce-product-tags"
+                                    value="Normal,Standard,Premium" aria-label="Product Tags" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /SEO Information -->
                     <!-- Variants -->
                     {{-- <div class="card mb-4">
                         <div class="card-header">
@@ -379,8 +410,8 @@
                             <!-- Base Price -->
                             <div class="mb-3">
                                 <label class="form-label" for="ecommerce-product-price">Base Price</label>
-                                <input type="number" class="form-control" id="ecommerce-product-price" placeholder="Price"
-                                    name="productPrice" aria-label="Product price" />
+                                <input type="number" class="form-control" id="ecommerce-product-price"
+                                    placeholder="Price" name="productPrice" aria-label="Product price" />
                             </div>
                             <!-- Discounted Price -->
                             <div class="mb-3">

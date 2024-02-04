@@ -269,11 +269,11 @@
                         <div>Company</div>
                     </a>
                 </li>
-                <li class="menu-item {{ request()->routeIs('setting.logo-fav') ? 'active' : '' }}">
+                {{-- <li class="menu-item {{ request()->routeIs('setting.logo-fav') ? 'active' : '' }}">
                     <a href="{{ route('setting.logo-fav') }}" class="menu-link">
                         <div>Logo & Fav</div>
                     </a>
-                </li>
+                </li> --}}
                 <li class="menu-item {{ request()->routeIs('setting.seo') ? 'active' : '' }}">
                     <a href="{{ route('setting.seo') }}" class="menu-link">
                         <div>SEO</div>
