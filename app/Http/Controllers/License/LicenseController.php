@@ -3,38 +3,110 @@
 namespace App\Http\Controllers\License;
 
 use App\Http\Controllers\Controller;
+use App\Models\License\License;
+use App\Models\Product\Product;
+use App\Models\User\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class LicenseController extends Controller
 {
     //Get All license
     public function all()
     {
-        return view('pages.license.all-license');
+        // Fetch all licenses from the database using the License model
+        $licenses = License::with(['product', 'user'])->orderByDesc('created_at')
+            ->get();
+
+        // Pass the fetched data to the view
+        return view('pages.license.all-license', compact('licenses'));
     }
 
     //Add license
     public function create()
     {
-        return view('pages.license.create-license');
+        // Fetch all categories for the dropdown
+        $users = User::all();
+        $products = Product::all();
+        return view('pages.license.create-license', compact('users', 'products'));
+    }
+
+    //Store license
+    public function store(Request $request)
+    {
+        // Validate the request data
+        $request->validate([
+            'user' => 'required',
+            'product' => 'required',
+            'package' => 'required',
+            'status' => 'required',
+            'package' => 'required',
+        ]);
+
+        $currentTimestamp = now();
+
+        // Calculate next_due based on the selected package
+        $package = $request->input('package');
+        switch ($package) {
+            case '1':
+                $nextDue = $currentTimestamp->addMonth();
+                break;
+            case '6':
+                $nextDue = $currentTimestamp->addMonths(6);
+                break;
+            case '12':
+                $nextDue = $currentTimestamp->addYear();
+                break;
+            default:
+                $nextDue = $currentTimestamp;
+                break;
+        }
+
+        // Update the subcategory in the database
+        $license = new License();
+        $license->status = $request->input('status');
+        $license->user_id = $request->input('user');
+        $license->product_id = $request->input('product');
+        $license->license_at = $currentTimestamp;
+        $license->next_due = $nextDue;
+        $license->package = $request->input('package');
+        $license->save();
+
+        toastr()->success('License created successfully!', 'success', ['timeOut' => 5000, 'closeButton' => true]);
+        return redirect()->route('license.all');
     }
 
     //Get Active license
     public function active()
     {
-        return view('pages.license.active-license');
+        // Fetch all licenses from the database using the License model
+        $licenses = License::with(['product', 'user'])
+            ->where('status', 'active')
+            ->orderByDesc('created_at')
+            ->get();
+        return view('pages.license.active-license', compact('licenses'));
     }
 
     //Get pending license
     public function pending()
     {
-        return view('pages.license.pending-license');
+        // Fetch all licenses from the database using the License model
+        $licenses = License::with(['product', 'user'])
+            ->where('status', 'pending')
+            ->orderByDesc('created_at')
+            ->get();
+        return view('pages.license.pending-license', compact('licenses'));
     }
 
     //Get suspended license
     public function suspended()
     {
-        return view('pages.license.suspended-license');
+        // Fetch all licenses from the database using the License model
+        $licenses = License::with(['product', 'user'])
+            ->where('status', 'suspended')
+            ->orderByDesc('created_at')
+            ->get();
+        return view('pages.license.suspended-license', compact('licenses'));
     }
 
     //View license
@@ -44,14 +116,42 @@ class LicenseController extends Controller
     }
 
     //Edit license
-    public function edit()
+    public function edit($id)
     {
-        return view('pages.license.edit-license');
+        // Fetch subcategory data from the database based on $id
+        $license = License::find($id);
+
+        // Fetch all categories for the dropdown
+        $users = User::all();
+        $products = Product::all();
+        return view('pages.license.edit-license', compact('license', 'users', 'products'));
     }
 
     //Update license
-    public function update()
+    public function update(Request $request, $id)
     {
-        return view('hello');
+
+        // Validate the request data
+        $request->validate([
+            'status' => 'required',
+        ]);
+
+        // Update the subcategory in the database
+        $license = License::findOrFail($id);
+        $license->update([
+            'status' => $request->input('status'),
+        ]);
+        toastr()->success('License updated successfully!', 'success', ['timeOut' => 5000, 'closeButton' => true]);
+        return redirect()->route('license.all');
+    }
+
+    //Update license
+    public function delete(Request $request)
+    {
+        $license = License::findOrFail($request->ItemID);
+        $license->delete();
+
+        toastr()->success('License deleted successfully!', 'success', ['timeOut' => 5000, 'closeButton' => true]);
+        return redirect()->route('license.all');
     }
 }

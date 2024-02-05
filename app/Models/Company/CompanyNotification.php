@@ -16,4 +16,9 @@ class CompanyNotification extends Model
         'url',
         'status',
     ];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

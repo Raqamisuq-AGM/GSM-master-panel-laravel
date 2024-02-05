@@ -15,4 +15,9 @@ class ProductSeo extends Model
         'meta_description',
         'keyword',
     ];
+
+    public function productSeo()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

@@ -12,4 +12,9 @@ class Attachment extends Model
     protected $fillable = [
         'attachment',
     ];
+
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class);
+    }
 }

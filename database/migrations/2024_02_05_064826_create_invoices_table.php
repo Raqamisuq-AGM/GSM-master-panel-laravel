@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('price')->nullable();
             $table->dateTime('due_date')->nullable();
             $table->string('status')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE')
+                ->onUpdate('CASCADE');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE')
+                ->onUpdate('CASCADE');
             $table->timestamps();
         });
     }

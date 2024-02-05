@@ -14,52 +14,81 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Thumb</th>
                                 <th>Product</th>
                                 <th>Avatar</th>
                                 <th>Full Name</th>
+                                <th>Package</th>
+                                <th>Created at</th>
+                                <th>Next Due</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <span class="fw-medium">15995</span>
-                                </td>
-                                <td>
-                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                                            class="avatar avatar-xs pull-up" title="Lilian Fuller">
-                                            <img src="{{ asset('assets/img/avatars/5.png') }}" alt="Avatar"
-                                                class="rounded-circle" />
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>this is demo product</td>
-                                <td>
-                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                                            class="avatar avatar-xs pull-up" title="Lilian Fuller">
-                                            <img src="{{ asset('assets/img/avatars/5.png') }}" alt="Avatar"
-                                                class="rounded-circle" />
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>shazib ahmed</td>
-                                <td>
-                                    <span class="badge bg-label-primary me-1">Active</span>
-                                </td>
-                                <td class="d-flex">
-                                    <a href="{{ route('license.edit', ['id' => '1']) }}" style="margin-right: 15px">
-                                        <i class="bx bx-edit-alt me-1"></i>
-                                    </a>
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#deleteItem">
-                                        <i class="bx bx-trash me-1"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                            @forelse ($licenses as $license)
+                                <tr>
+                                    <td>
+                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
+                                                class="avatar avatar-xs pull-up" title="Lilian Fuller">
+                                                <img src="{{ asset($license->product->thumb) }}" alt="Avatar"
+                                                    class="rounded-circle" />
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>{{ $license->product->title }}</td>
+                                    <td>
+                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
+                                                class="avatar avatar-xs pull-up" title="Lilian Fuller">
+                                                <img src="{{ asset($license->user->avatar) }}" alt="Avatar"
+                                                    class="rounded-circle" />
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>{{ $license->user->first_name . ' ' . $license->user->last_name }}</td>
+                                    <td>
+                                        @if ($license->package == '1')
+                                            monthly
+                                        @elseif($license->package == '6')
+                                            half yearly
+                                        @elseif($license->package == '12')
+                                            yealy
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ \Carbon\Carbon::parse($license->license_at)->format('d-m-y h:i A') }}
+                                    </td>
+                                    <td>
+                                        {{ \Carbon\Carbon::parse($license->next_due)->format('d-m-y h:i A') }}
+                                    </td>
+                                    <td>
+                                        <span
+                                            class="badge
+                                            @if ($license->status == 'active') bg-label-success
+                                            @elseif($license->status == 'pending')
+                                            bg-label-warning
+                                            @elseif($license->status == 'suspended')
+                                            bg-label-danger @endif }} me-1">{{ $license->status }}</span>
+                                    </td>
+                                    <td class="d-flex">
+                                        <a href="{{ route('license.edit', ['id' => $license->id]) }}"
+                                            style="margin-right: 15px">
+                                            <i class="bx bx-edit-alt me-1"></i>
+                                        </a>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#deleteItem"
+                                            data-category-id="{{ $license->id }}"
+                                            onclick="document.getElementById('ItemID').value = {{ $license->id }}">
+                                            <i class="bx bx-trash me-1"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center">No license found</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -76,7 +105,9 @@
                         <div class="text-center mb-4">
                             <h3 class="mb-5">Delete this item</h3>
                         </div>
-                        <form id="deleteItemForm" class="row g-3" onsubmit="return false">
+                        <form id="deleteItemForm" class="row g-3" method="POST" action="{{ route('license.delete') }}">
+                            @csrf
+                            <input type="hidden" name="ItemID" id="ItemID">
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-primary me-sm-3 me-1">
                                     Yes

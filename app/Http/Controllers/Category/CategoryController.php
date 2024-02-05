@@ -3,37 +3,72 @@
 namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    //Get All Category Route
+    //Get All Category
     public function all()
     {
-        return view('pages.category.all-category');
+        // Retrieve all categories with counts
+        $categories = Category::withCount(['subCategories', 'products'])
+            ->orderByDesc('created_at')
+            ->get();
+
+        return view('pages.category.all-category', compact('categories'));
     }
 
-    //Add Category Route
+    //Add Category
     public function add()
     {
         return view('pages.category.add-category');
     }
 
-    //Edit Category Route
-    public function edit()
+    // Store Category
+    public function store(Request $request)
     {
-        return view('pages.category.edit-category');
+        $request->validate([
+            'category' => 'required|string|max:255|unique:categories,category',
+        ]);
+
+        Category::create([
+            'category' => $request->input('category'),
+        ]);
+        toastr()->success('Category added successfully!', 'success', ['timeOut' => 5000, 'closeButton' => true]);
+        return redirect()->route('category.all');
     }
 
-    //Update Category Route
-    public function update()
+    //Edit Category
+    public function edit($id)
     {
-        return view('hello');
+        $category = Category::findOrFail($id);
+
+        return view('pages.category.edit-category', compact('category'));
     }
 
-    //Delete Category Route
-    public function delete()
+    //Update Category
+    public function update(Request $request, $id)
     {
-        return view('hello');
+        $request->validate([
+            'category' => 'required|string|max:255|unique:categories,category,' . $id,
+        ]);
+
+        $category = Category::findOrFail($id);
+        $category->update([
+            'category' => $request->input('category'),
+        ]);
+        toastr()->success('Category updated successfully!', 'success', ['timeOut' => 5000, 'closeButton' => true]);
+        return redirect()->route('category.all');
+    }
+
+    // Delete Category
+    public function delete(Request $request)
+    {
+        $category = Category::findOrFail($request->ItemID);
+        $category->delete();
+
+        toastr()->success('Category deleted successfully!', 'success', ['timeOut' => 5000, 'closeButton' => true]);
+        return redirect()->route('category.all');
     }
 }
