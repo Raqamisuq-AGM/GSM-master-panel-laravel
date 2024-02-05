@@ -7,35 +7,60 @@
     <div class="container-xxl flex-grow-1 container-p-y">
 
         <div class="app-ecommerce">
-            <!-- Add Product -->
+            <!-- Edit Category -->
             <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
                 <div class="d-flex flex-column justify-content-center">
                     <h4 class="mb-1 mt-3">Edit category</h4>
                 </div>
                 <div class="d-flex align-content-center flex-wrap gap-3">
-                    <button class="btn btn-label-secondary">Cancel</button>
-                    <button type="submit" class="btn btn-primary">
+                    <a href="{{ route('category.all') }}" class="btn btn-label-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary"
+                        onclick="document.getElementById('updateCategoryForm').submit()">
                         Update
                     </button>
                 </div>
             </div>
 
             <div class="row">
-
                 <!-- Second column -->
                 <div class="col-12 col-lg-12">
-                    <!-- Pricing Card -->
+                    <!-- Category Card -->
                     <div class="card mb-4">
                         <div class="card-body">
-                            <!-- Base Price -->
-                            <div class="mb-3">
-                                <label class="form-label" for="ecommerce-product-price">Category</label>
-                                <input type="text" class="form-control" id="ecommerce-product-price"
-                                    placeholder="Category" name="productPrice" aria-label="Product price" />
-                            </div>
+                            <!-- Display validation errors -->
+                            @if ($errors->any())
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>Error:</strong> Please fix the following issues:
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
+
+                            <!-- Add the form tags with the action and csrf token -->
+                            <form id="updateCategoryForm" action="{{ route('category.update', ['id' => $category->id]) }}"
+                                method="POST">
+                                @csrf
+                                <!-- Use the PUT method for updating -->
+                                @method('PUT')
+                                <!-- Base Price -->
+                                <div class="mb-3">
+                                    <label class="form-label" for="ecommerce-category">Category</label>
+                                    <input type="text" class="form-control" id="ecommerce-category"
+                                        placeholder="Category" name="category" aria-label="Category"
+                                        value="{{ old('category', $category->category) }}" required />
+                                    @error('category')
+                                        <div class="text-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <!-- /Pricing Card -->
+                    <!-- /Category Card -->
                 </div>
                 <!-- /Second column -->
             </div>

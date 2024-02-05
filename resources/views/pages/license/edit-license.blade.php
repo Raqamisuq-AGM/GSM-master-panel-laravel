@@ -13,9 +13,10 @@
                     <h4 class="mb-1 mt-3">Edit license</h4>
                 </div>
                 <div class="d-flex align-content-center flex-wrap gap-3">
-                    <button class="btn btn-label-secondary">Cancel</button>
-                    <button type="submit" class="btn btn-primary">
-                        Update license
+                    <a href="{{ route('license.all') }}" class="btn btn-label-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary"
+                        onclick="document.getElementById('updateLicenseForm').submit()">
+                        Update
                     </button>
                 </div>
             </div>
@@ -24,64 +25,107 @@
 
                 <!-- Second column -->
                 <div class="col-12 col-lg-12">
-                    <!-- Organize Card -->
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <!-- Vendor -->
-                            <div class="mb-3 col ecommerce-select2-dropdown">
-                                <label class="form-label mb-1" for="vendor">
-                                    User
-                                </label>
-                                <select id="vendor" class="select2 form-select" data-placeholder="Select User">
-                                    <option value="">Select User</option>
-                                    <option value="men-clothing">Shazib</option>
-                                    <option value="women-clothing">
-                                        Babu
-                                    </option>
-                                    <option value="kid-clothing">Shahin</option>
-                                </select>
-                            </div>
-                            <!-- Category -->
-                            <div class="mb-3 col ecommerce-select2-dropdown">
-                                <label class="form-label mb-1 d-flex justify-content-between align-items-center"
-                                    for="category-org">
-                                    <span>Product</span>
-                                </label>
-                                <select id="category-org" class="select2 form-select" data-placeholder="Select Category">
-                                    <option value="">Select Product</option>
-                                    <option value="Household">Household</option>
-                                    <option value="Management">Management</option>
-                                    <option value="Electronics">Electronics</option>
-                                    <option value="Office">Office</option>
-                                    <option value="Automotive">Automotive</option>
-                                </select>
-                            </div>
-                            <!-- Sub category -->
-                            <div class="mb-3 col ecommerce-select2-dropdown">
-                                <label class="form-label mb-1" for="collection">Package
-                                </label>
-                                <select id="collection" class="select2 form-select" data-placeholder="Select Package">
-                                    <option value="">Select Package</option>
-                                    <option value="men-clothing">Monthly</option>
-                                    <option value="women-clothing">
-                                        6 Month
-                                    </option>
-                                    <option value="kid-clothing">Yearly</option>
-                                </select>
-                            </div>
-                            <!-- Status -->
-                            <div class="mb-3 col ecommerce-select2-dropdown">
-                                <label class="form-label mb-1" for="status-org">Status
-                                </label>
-                                <select id="status-org" class="select2 form-select" data-placeholder="Active">
-                                    <option value="">Active</option>
-                                    <option value="Published">Pending</option>
-                                    <option value="Inactive">Suspended</option>
-                                </select>
+                    <!-- Display validation errors -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Error:</strong> Please fix the following issues:
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    <form id="updateLicenseForm" action="{{ route('license.update', ['id' => $license->id]) }}"
+                        method="POST">
+                        @csrf
+                        <!-- Use the PUT method for updating -->
+                        @method('PUT')
+                        <!-- Organize Card -->
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <!-- Vendor -->
+                                <div class="mb-3 col ecommerce-select2-dropdown">
+                                    <label class="form-label mb-1" for="vendor">
+                                        User
+                                    </label>
+                                    <select id="vendor" class="select2 form-select" data-placeholder="Select user"
+                                        name="user" disabled>
+                                        <option value="">Select user</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}"
+                                                {{ $user->id == $license->user->id ? 'selected' : '' }}>
+                                                {{ $user->first_name . ' ' . $user->last_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('user')
+                                        <div class="text-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <!-- Category -->
+                                <div class="mb-3 col ecommerce-select2-dropdown">
+                                    <label class="form-label mb-1 d-flex justify-content-between align-items-center"
+                                        for="category-org">
+                                        <span>Product</span>
+                                    </label>
+                                    <select id="category-org" class="select2 form-select" data-placeholder="Select product"
+                                        name="product" disabled>
+                                        <option value="">Select Product</option>
+                                        @foreach ($products as $product)
+                                            <option value="{{ $product->id }}"
+                                                {{ $product->id == $license->product->id ? 'selected' : '' }}>
+                                                {{ $product->title }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('product')
+                                        <div class="text-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <!-- Sub category -->
+                                <div class="mb-3 col ecommerce-select2-dropdown">
+                                    <label class="form-label mb-1" for="collection">Package
+                                    </label>
+                                    <select id="status-org" class="select2 form-select" data-placeholder="Select package"
+                                        name="package" disabled>
+                                        <option value="">Select package</option>
+                                        <option value="1" {{ $license->package == '1' ? 'selected' : '' }}>Monthly
+                                        </option>
+                                        <option value="6" {{ $license->package == '6' ? 'selected' : '' }}>Half
+                                            yearly
+                                        </option>
+                                        <option value="12" {{ $license->package == '12' ? 'selected' : '' }}>
+                                            Yearly</option>
+                                    </select>
+                                    @error('package')
+                                        <div class="text-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <!-- Status -->
+                                <div class="mb-3 col ecommerce-select2-dropdown">
+                                    <label class="form-label mb-1" for="status-org">Status
+                                    </label>
+                                    <select id="status-org" class="select2 form-select" data-placeholder="Select status"
+                                        name="status">
+                                        option value="">Select status</option>
+                                        <option value="active" {{ $license->status == 'active' ? 'selected' : '' }}>Active
+                                        </option>
+                                        <option value="pending" {{ $license->status == 'pending' ? 'selected' : '' }}>
+                                            Pending
+                                        </option>
+                                        <option value="suspended" {{ $license->status == 'suspended' ? 'selected' : '' }}>
+                                            Suspended</option>
+                                    </select>
+                                    @error('status')
+                                        <div class="text-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- /Organize Card -->
+                        <!-- /Organize Card -->
+                    </form>
                 </div>
                 <!-- /Second column -->
             </div>

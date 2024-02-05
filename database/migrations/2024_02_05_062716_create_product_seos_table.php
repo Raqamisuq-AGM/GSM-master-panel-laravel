@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->longText('meta_description')->nullable();
             $table->text('keyword')->nullable();
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('CASCADE')
+                ->onUpdate('CASCADE');
             $table->timestamps();
         });
     }

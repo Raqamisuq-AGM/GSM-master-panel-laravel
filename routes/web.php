@@ -40,22 +40,25 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::prefix('category')->group(function () {
     Route::get('/all', [CategoryController::class, 'all'])->name('category.all');
     Route::get('/add', [CategoryController::class, 'add'])->name('category.add');
+    Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
     Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
-    Route::get('/delete', [CategoryController::class, 'delete'])->name('category.delete');
-    Route::post('/update', [CategoryController::class, 'update'])->name('category.update');
+    Route::post('/delete', [CategoryController::class, 'delete'])->name('category.delete');
+    Route::put('/update/{id}', [CategoryController::class, 'update'])->name('category.update');
 });
 // Sub Category Route
 Route::prefix('sub-category')->group(function () {
     Route::get('/all', [SubCategoryController::class, 'all'])->name('sub-category.all');
     Route::get('/add', [SubCategoryController::class, 'add'])->name('sub-category.add');
+    Route::post('/store', [SubCategoryController::class, 'store'])->name('sub-category.store');
     Route::get('/edit/{id}', [SubCategoryController::class, 'edit'])->name('sub-category.edit');
-    Route::post('/update', [SubCategoryController::class, 'update'])->name('sub-category.update');
+    Route::put('/update/{id}', [SubCategoryController::class, 'update'])->name('sub-category.update');
     Route::post('/delete', [SubCategoryController::class, 'delete'])->name('sub-category.delete');
 });
 // Product Route
 Route::prefix('product')->group(function () {
     Route::get('/all', [ProductController::class, 'all'])->name('product.all');
     Route::get('/add', [ProductController::class, 'add'])->name('product.add');
+    Route::post('/store', [ProductController::class, 'store'])->name('product.store');
     Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
     Route::post('/update', [ProductController::class, 'update'])->name('product.update');
     Route::post('/delete', [ProductController::class, 'delete'])->name('product.delete');
@@ -67,9 +70,11 @@ Route::prefix('license')->group(function () {
     Route::get('/active', [LicenseController::class, 'active'])->name('license.active');
     Route::get('/suspended', [LicenseController::class, 'suspended'])->name('license.suspended');
     Route::get('/create', [LicenseController::class, 'create'])->name('license.create');
+    Route::post('/store', [LicenseController::class, 'store'])->name('license.store');
     Route::get('/edit/{id}', [LicenseController::class, 'edit'])->name('license.edit');
     Route::get('/view/{id}', [LicenseController::class, 'view'])->name('license.view');
-    Route::post('/update', [LicenseController::class, 'update'])->name('license.update');
+    Route::put('/update/{id}', [LicenseController::class, 'update'])->name('license.update');
+    Route::post('/delete', [LicenseController::class, 'delete'])->name('license.delete');
 });
 // User Route
 Route::prefix('user')->group(function () {
@@ -111,14 +116,3 @@ Route::prefix('setting')->group(function () {
 });
 // Logout Route
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
-
-// Widget Route
-Route::get('/widget', [WidgetController::class, 'index'])->name('widget');
-
-// Forms Route
-Route::prefix('forms')->group(function () {
-    Route::get('/general', [FormController::class, 'general'])->name('forms.general');
-    Route::get('/advanced', [FormController::class, 'advanced'])->name('forms.advanced');
-    Route::get('/editor', [FormController::class, 'editor'])->name('forms.editor');
-    Route::get('/validation', [FormController::class, 'validation'])->name('forms.validation');
-});

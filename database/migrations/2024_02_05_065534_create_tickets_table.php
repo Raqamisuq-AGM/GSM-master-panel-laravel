@@ -19,7 +19,8 @@ return new class extends Migration
             $table->longText('details')->nullable();
             $table->string('priority')->nullable();
             $table->string('status')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE')
+                ->onUpdate('CASCADE');
             $table->timestamps();
         });
     }

@@ -28,4 +28,14 @@ class Company extends Model
         'logo',
         'favicon',
     ];
+
+    public function companySeo()
+    {
+        return $this->hasOne(CompanySeo::class);
+    }
+
+    public function companyNotifications()
+    {
+        return $this->hasMany(CompanyNotification::class);
+    }
 }

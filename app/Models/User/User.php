@@ -2,6 +2,10 @@
 
 namespace App\Models\User;
 
+use App\Models\Invoice\Invoice;
+use App\Models\License\License;
+use App\Models\Notification\UserNotification;
+use App\Models\Support\Ticket;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -18,6 +22,7 @@ class User extends Model
      */
 
     protected $fillable = [
+        'avatar',
         'first_name',
         'last_name',
         'user_name',
@@ -57,4 +62,24 @@ class User extends Model
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function licenses()
+    {
+        return $this->hasMany(License::class);
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    public function userNotifications()
+    {
+        return $this->hasMany(UserNotification::class);
+    }
 }

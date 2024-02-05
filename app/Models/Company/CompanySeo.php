@@ -15,4 +15,9 @@ class CompanySeo extends Model
         'meta_description',
         'keyword',
     ];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

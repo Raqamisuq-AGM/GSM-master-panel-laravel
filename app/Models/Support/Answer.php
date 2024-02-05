@@ -12,4 +12,9 @@ class Answer extends Model
     protected $fillable = [
         'answer',
     ];
+
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class);
+    }
 }

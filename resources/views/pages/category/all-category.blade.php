@@ -21,23 +21,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                    <span class="fw-medium">demo</span>
-                                </td>
-                                <td>10</td>
-                                <td>10</td>
-                                <td class="d-flex">
-                                    <a href="{{ route('category.edit', ['id' => '1']) }}" style="margin-right: 15px">
-                                        <i class="bx bx-edit-alt me-1"></i>
-                                    </a>
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#deleteItem">
-                                        <i class="bx bx-trash me-1"></i>
-                                    </a>
-
-                                </td>
-                            </tr>
+                            @forelse ($categories as $category)
+                                <tr>
+                                    <td>
+                                        <span class="fw-medium">{{ $category->category }}</span>
+                                    </td>
+                                    <td>{{ $category->sub_categories_count }}</td>
+                                    <td>{{ $category->products_count }}</td>
+                                    <td class="d-flex">
+                                        <a href="{{ route('category.edit', ['id' => $category->id]) }}"
+                                            style="margin-right: 15px">
+                                            <i class="bx bx-edit-alt me-1"></i>
+                                        </a>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#deleteItem"
+                                            data-category-id="{{ $category->id }}"
+                                            onclick="document.getElementById('ItemID').value = {{ $category->id }}">
+                                            <i class="bx bx-trash me-1"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center">No categories found</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -54,7 +61,9 @@
                         <div class="text-center mb-4">
                             <h3 class="mb-5">Delete this item</h3>
                         </div>
-                        <form id="deleteItemForm" class="row g-3" onsubmit="return false">
+                        <form id="deleteItemForm" class="row g-3" method="POST" action="{{ route('category.delete') }}">
+                            @csrf
+                            <input type="hidden" name="ItemID" id="ItemID">
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-primary me-sm-3 me-1">
                                     Yes

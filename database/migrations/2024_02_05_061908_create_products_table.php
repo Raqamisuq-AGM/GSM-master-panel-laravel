@@ -24,8 +24,16 @@ return new class extends Migration
             $table->string('slider3')->nullable();
             $table->string('slider4')->nullable();
             $table->string('status')->nullable();
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('sub_category_id')->references('id')->on('sub_categories');
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('CASCADE')
+                ->onUpdate('CASCADE');
+            $table->foreign('sub_category_id')
+                ->references('id')
+                ->on('sub_categories')
+                ->onDelete('CASCADE')
+                ->onUpdate('CASCADE');
             $table->timestamps();
         });
     }

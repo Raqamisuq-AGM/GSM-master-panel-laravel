@@ -10,11 +10,12 @@
             <!-- Add Product -->
             <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
                 <div class="d-flex flex-column justify-content-center">
-                    <h4 class="mb-1 mt-3">Edit sub category</h4>
+                    <h4 class="mb-1 mt-3">Add a new sub category</h4>
                 </div>
                 <div class="d-flex align-content-center flex-wrap gap-3">
-                    <button class="btn btn-label-secondary">Cancel</button>
-                    <button type="submit" class="btn btn-primary">
+                    <a href="{{ route('sub-category.all') }}" class="btn btn-label-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary"
+                        onclick="document.getElementById('addSubCategoryForm').submit()">
                         Update
                     </button>
                 </div>
@@ -27,40 +28,48 @@
                     <!-- Pricing Card -->
                     <div class="card mb-4">
                         <div class="card-body">
-                            <!-- Base Price -->
-                            <div class="mb-3">
-                                <label class="form-label" for="ecommerce-product-price">Sub Category</label>
-                                <input type="text" class="form-control" id="ecommerce-product-price"
-                                    placeholder="Sub Category" name="productPrice" aria-label="Product price" />
-                            </div>
+                            <!-- Add the form tags with the action and csrf token -->
+                            <form id="addSubCategoryForm"
+                                action="{{ route('sub-category.update', ['id' => $subcategory->id]) }}" method="POST">
+                                @csrf
+                                <!-- Use the PUT method for updating -->
+                                @method('PUT')
+                                <!-- Sub Category -->
+                                <div class="mb-3">
+                                    <label class="form-label" for="ecommerce-product-price">Sub Category</label>
+                                    <input type="text" class="form-control" id="ecommerce-product-price"
+                                        placeholder="Sub Category" name="sub_category" aria-label="Sub Category"
+                                        value="{{ $subcategory->sub_category ?? old('sub_category') }}" />
+                                    @error('sub_category')
+                                        <div class="text-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- Category Dropdown -->
+                                <div class="mb-3 col ecommerce-select2-dropdown">
+                                    <label class="form-label mb-1 d-flex justify-content-between align-items-center"
+                                        for="category-org">
+                                        <span>Category</span>
+                                        <a href="{{ route('category.add') }}" class="fw-medium">Add new category</a>
+                                    </label>
+                                    <select id="category-org" name="category_id" class="select2 form-select"
+                                        data-placeholder="Select Category" required>
+                                        <option value="">Select Category</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}"
+                                                {{ $category->id == $subcategory->category->id ? 'selected' : '' }}>
+                                                {{ $category->category }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
+                                        <div class="text-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <!-- /Pricing Card -->
-                    <!-- Organize Card -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Category</h5>
-                        </div>
-                        <div class="card-body">
-                            <!-- Category -->
-                            <div class="mb-3 col ecommerce-select2-dropdown">
-                                <label class="form-label mb-1 d-flex justify-content-between align-items-center"
-                                    for="category-org">
-                                    <span>Category</span><a href="javascript:void(0);" class="fw-medium">Add new
-                                        category</a>
-                                </label>
-                                <select id="category-org" class="select2 form-select" data-placeholder="Select Category">
-                                    <option value="">Select Category</option>
-                                    <option value="Household">Household</option>
-                                    <option value="Management">Management</option>
-                                    <option value="Electronics">Electronics</option>
-                                    <option value="Office">Office</option>
-                                    <option value="Automotive">Automotive</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Organize Card -->
                 </div>
                 <!-- /Second column -->
             </div>
@@ -68,6 +77,7 @@
     </div>
     <!-- / Content -->
 @endsection
+
 
 @section('style')
     <link rel="stylesheet"
