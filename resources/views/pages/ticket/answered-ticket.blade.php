@@ -8,7 +8,7 @@
 
         <!-- Bordered Table -->
         <div class="card">
-            <h5 class="card-header">Answered Tickets</h5>
+            <h5 class="card-header">Tickets</h5>
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
                     <table class="table table-bordered">
@@ -22,23 +22,46 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <span class="fw-medium">15995</span>
-                                </td>
-                                <td>this is demo subject</td>
-                                <td>
-                                    <span class="badge bg-label-warning me-1">pending</span>
-                                </td>
-                                <td>
-                                    <span class="badge bg-label-warning me-1">pending</span>
-                                </td>
-                                <td class="d-flex">
-                                    <a href="{{ route('ticket.view', ['id' => '1']) }}">
-                                        <i class="bx bx-show mx-1"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                            @forelse ($tickets as $ticket)
+                                <tr>
+                                    <td>
+                                        <span class="fw-medium">{{ $ticket->ticket_id }}</span>
+                                    </td>
+                                    <td>{{ $ticket->subject }}</td>
+                                    <td>
+                                        <span
+                                            class="badge
+                                            @if ($ticket->priority == 'high') bg-label-danger
+                                            @elseif($ticket->priority == 'medium')
+                                            bg-label-warning
+                                            @elseif($ticket->priority == 'normal')
+                                            bg-label-success @endif
+                                             me-1">
+                                            {{ $ticket->priority }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span
+                                            class="badge
+                                        @if ($ticket->status == 'closed') bg-label-danger
+                                            @elseif($ticket->status == 'pending')
+                                            bg-label-warning
+                                            @elseif($ticket->status == 'answered')
+                                            bg-label-success @endif me-1">
+                                            {{ $ticket->status }}
+                                        </span>
+                                    </td>
+                                    <td class="d-flex">
+                                        <a href="{{ route('ticket.view', ['id' => $ticket->id]) }}">
+                                            <i class="bx bx-show mx-1"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center">No tickets found</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

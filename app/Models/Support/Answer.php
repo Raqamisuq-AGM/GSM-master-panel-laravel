@@ -10,6 +10,7 @@ class Answer extends Model
     use HasFactory;
 
     protected $fillable = [
+        'answer_type',
         'answer',
     ];
 

@@ -41,6 +41,7 @@ class LicenseController extends Controller
             'package' => 'required',
             'status' => 'required',
             'package' => 'required',
+            'domain' => 'required',
         ]);
 
         $currentTimestamp = now();
@@ -70,6 +71,7 @@ class LicenseController extends Controller
         $license->license_at = $currentTimestamp;
         $license->next_due = $nextDue;
         $license->package = $request->input('package');
+        $license->domain_reg = $request->input('domain');
         $license->save();
 
         toastr()->success('License created successfully!', 'success', ['timeOut' => 5000, 'closeButton' => true]);
@@ -110,9 +112,12 @@ class LicenseController extends Controller
     }
 
     //View license
-    public function view()
+    public function view($id)
     {
-        return view('pages.license.view-license');
+        // Fetch subcategory data from the database based on $id
+        $license = License::find($id);
+
+        return view('pages.license.view-license', compact('license'));
     }
 
     //Edit license

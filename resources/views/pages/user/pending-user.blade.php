@@ -8,13 +8,12 @@
 
         <!-- Bordered Table -->
         <div class="card">
-            <h5 class="card-header">Pending Users</h5>
+            <h5 class="card-header">Users</h5>
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Avatar</th>
                                 <th>Full Name</th>
                                 <th>Email</th>
@@ -24,32 +23,41 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <span class="fw-medium">15995</span>
-                                </td>
-                                <td>
-                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                                            class="avatar avatar-xs pull-up" title="Lilian Fuller">
-                                            <img src="{{ asset('assets/img/avatars/5.png') }}" alt="Avatar"
-                                                class="rounded-circle" />
-                                        </li>
-                                    </ul>
+                            @forelse ($users as $user)
+                                <tr>
+                                    <td>
+                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
+                                                class="avatar avatar-xs pull-up" title="Lilian Fuller">
+                                                <img src="{{ asset('assets/img/user/' . $user->avatar) }}" alt="Avatar"
+                                                    class="rounded-circle" />
+                                            </li>
+                                        </ul>
 
-                                </td>
-                                <td>shazib ahmed</td>
-                                <td>example@gmail.com</td>
-                                <td>01685412069</td>
-                                <td>
-                                    <span class="badge bg-label-warning me-1">Pending</span>
-                                </td>
-                                <td class="d-flex">
-                                    <a href="{{ route('user.view', ['id' => '1']) }}" style="margin-right: 15px">
-                                        <i class="bx bx-show mx-1"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>{{ $user->first_name . ' ' . $user->last_name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->phon }}</td>
+                                    <td>
+                                        <span
+                                            class="badge
+                                        @if ($user->status == 'active') bg-label-success
+                                            @elseif($user->status == 'pending')
+                                            bg-label-warning
+                                            @elseif($user->status == 'suspended')
+                                            bg-label-danger @endif me-1">{{ $user->status }}</span>
+                                    </td>
+                                    <td class="d-flex">
+                                        <a href="{{ route('user.view', ['id' => '1']) }}" style="margin-right: 15px">
+                                            <i class="bx bx-show mx-1"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-center">No user found</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

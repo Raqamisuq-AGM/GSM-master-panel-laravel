@@ -33,7 +33,7 @@
                                         <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                             <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
                                                 class="avatar avatar-xs pull-up" title="Lilian Fuller">
-                                                <img src="{{ asset('assets/img/avatars/5.png') }}" alt="Avatar"
+                                                <img src="{{ asset('assets/img/product/5.png') }}" alt="Avatar"
                                                     class="rounded-circle" />
                                             </li>
                                         </ul>

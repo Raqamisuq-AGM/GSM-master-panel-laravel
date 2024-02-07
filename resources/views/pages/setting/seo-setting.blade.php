@@ -13,54 +13,59 @@
                     {{-- <h4 class="mb-1 mt-3">Add a new Product</h4> --}}
                 </div>
                 <div class="d-flex align-content-center flex-wrap gap-3">
-                    <button class="btn btn-label-primary">Update</button>
+                    <button class="btn btn-label-primary"
+                        onclick="document.getElementById('formCompanySeoSettings').submit()">Update</button>
                 </div>
             </div>
 
             <div class="row">
                 <!-- First column-->
                 <div class="col-12 col-lg-12">
-                    <!-- Product Information -->
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h5 class="card-tile mb-0">SEO</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <label class="form-label" for="author">Author</label>
-                                <input type="text" class="form-control" id="author" placeholder="shazib"
-                                    name="author" aria-label="Author" />
+                    <form id="formCompanySeoSettings" action="{{ route('setting.update-seo') }}" method="POST"
+                        onsubmit="return false">
+                        @csrf
+                        <!-- Product Information -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="card-tile mb-0">SEO</h5>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="title_slogan">Title</label>
-                                <input type="text" class="form-control" id="title_slogan" placeholder="Title"
-                                    name="productTitle" aria-label="Title/Slogan" />
-                            </div>
-                            <!-- Description -->
-                            <div>
-                                <label class="form-label">Meta Description</label>
-                                <div class="form-control p-0 pt-1">
-                                    <div class="comment-toolbar border-0 border-bottom">
-                                        <div class="d-flex justify-content-start">
-                                            <span class="ql-formats me-0">
-                                                <button class="ql-bold"></button>
-                                                <button class="ql-italic"></button>
-                                                <button class="ql-underline"></button>
-                                            </span>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label" for="author">Author</label>
+                                    <input type="text" class="form-control" id="author" placeholder="shazib"
+                                        name="author" value="{{ $company[0]->author }}" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="title_slogan">Title</label>
+                                    <input type="text" class="form-control" id="title_slogan" placeholder="Title"
+                                        name="title" value="{{ $company[0]->title }}" />
+                                </div>
+                                <!-- Description -->
+                                <div>
+                                    <label class="form-label">Meta Description</label>
+                                    <div class="form-control p-0 pt-1">
+                                        <div class="comment-toolbar border-0 border-bottom">
+                                            <div class="d-flex justify-content-start">
+                                                <span class="ql-formats me-0">
+                                                    <button class="ql-bold"></button>
+                                                    <button class="ql-italic"></button>
+                                                    <button class="ql-underline"></button>
+                                                </span>
+                                            </div>
                                         </div>
+                                        <div class="comment-editor border-0 pb-4" id="ecommerce-category-description"></div>
                                     </div>
-                                    <div class="comment-editor border-0 pb-4" id="ecommerce-category-description"></div>
+                                </div>
+                                <!-- Tags -->
+                                <div class="mb-3 mt-3">
+                                    <label for="ecommerce-product-tags" class="form-label mb-1">Keywords</label>
+                                    <input id="ecommerce-product-tags" class="form-control" name="keyword"
+                                        value="{{ $company[0]->keyword }}" aria-label="Product Tags" />
                                 </div>
                             </div>
-                            <!-- Tags -->
-                            <div class="mb-3 mt-3">
-                                <label for="ecommerce-product-tags" class="form-label mb-1">Keywords</label>
-                                <input id="ecommerce-product-tags" class="form-control" name="ecommerce-product-tags"
-                                    value="Normal,Standard,Premium" aria-label="Product Tags" />
-                            </div>
                         </div>
-                    </div>
-                    <!-- /Product Information -->
+                        <!-- /Product Information -->
+                    </form>
                 </div>
                 <!-- /Second column -->
             </div>
