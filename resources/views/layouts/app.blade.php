@@ -1,3 +1,7 @@
+@php
+    $company = app(\App\Models\Company\Company::class)->get();
+@endphp
+
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-compact layout-navbar-fixed layout-menu-fixed" dir="ltr"
@@ -22,25 +26,7 @@
     <!-- Canonical SEO -->
     <link rel="canonical" href="https://themeselection.com/item/sneat-bootstrap-laravel-admin-template/" />
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
-
-    <!-- Google Tag Manager (Default ThemeSelection: GTM-5DDHKGP, PixInvent: GTM-5J3LMKC) -->
-    {{-- <script>
-        (function(w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                "gtm.start": new Date().getTime(),
-                event: "gtm.js",
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != "dataLayer" ? "&l=" + l : "";
-            j.async = true;
-            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, "script", "dataLayer", "GTM-5DDHKGP");
-    </script> --}}
-    <!-- End Google Tag Manager -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo/' . $company[0]->favicon) }}" />
 
     <!-- Include Styles -->
     <!-- $isFront is used to append the front layout styles only on the front layout otherwise the variable will be blank -->
@@ -129,16 +115,6 @@
   </head>
 
   <body>
-    <!-- Google Tag Manager (noscript) (Default ThemeSelection: GTM-5DDHKGP, PixInvent: GTM-5J3LMKC) -->
-    {{-- <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-5DDHKGP"
-        height="0"
-        width="0"
-        style="display: none; visibility: hidden"
-      ></iframe
-    ></noscript> --}}
-    <!-- End Google Tag Manager (noscript) -->
 
     <!-- Layout Content -->
     <div class="layout-wrapper layout-content-navbar">

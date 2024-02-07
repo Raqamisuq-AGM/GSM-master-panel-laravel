@@ -8,7 +8,7 @@
 
         <!-- Bordered Table -->
         <div class="card">
-            <h5 class="card-header">Pending License</h5>
+            <h5 class="card-header">All License</h5>
             <div class="card-body">
                 <div class="table-responsive text-nowrap">
                     <table class="table table-bordered">
@@ -32,8 +32,8 @@
                                         <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                             <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
                                                 class="avatar avatar-xs pull-up" title="Lilian Fuller">
-                                                <img src="{{ asset($license->product->thumb) }}" alt="Avatar"
-                                                    class="rounded-circle" />
+                                                <img src="{{ asset('assets/img/product/' . $license->product->thumb) }}"
+                                                    alt="Avatar" class="rounded-circle" />
                                             </li>
                                         </ul>
                                     </td>
@@ -42,8 +42,8 @@
                                         <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                             <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
                                                 class="avatar avatar-xs pull-up" title="Lilian Fuller">
-                                                <img src="{{ asset($license->user->avatar) }}" alt="Avatar"
-                                                    class="rounded-circle" />
+                                                <img src="{{ asset('assets/img/user/' . $license->user->avatar) }}"
+                                                    alt="Avatar" class="rounded-circle" />
                                             </li>
                                         </ul>
                                     </td>
@@ -58,7 +58,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{ \Carbon\Carbon::parse($license->license_at)->format('d-m-y h:i A') }}
+                                        {{ \Carbon\Carbon::parse($license->created_at)->format('d-m-y h:i A') }}
                                     </td>
                                     <td>
                                         {{ \Carbon\Carbon::parse($license->next_due)->format('d-m-y h:i A') }}
@@ -70,12 +70,16 @@
                                             @elseif($license->status == 'pending')
                                             bg-label-warning
                                             @elseif($license->status == 'suspended')
-                                            bg-label-danger @endif }} me-1">{{ $license->status }}</span>
+                                            bg-label-danger @endif me-1">{{ $license->status }}</span>
                                     </td>
                                     <td class="d-flex">
                                         <a href="{{ route('license.edit', ['id' => $license->id]) }}"
                                             style="margin-right: 15px">
                                             <i class="bx bx-edit-alt me-1"></i>
+                                        </a>
+                                        <a href="{{ route('license.view', ['id' => $license->id]) }}"
+                                            style="margin-right: 15px">
+                                            <i class="bx bx-show me-1"></i>
                                         </a>
                                         <a href="#" data-bs-toggle="modal" data-bs-target="#deleteItem"
                                             data-category-id="{{ $license->id }}"
@@ -86,7 +90,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center">No license found</td>
+                                    <td colspan="9" class="text-center">No license found</td>
                                 </tr>
                             @endforelse
                         </tbody>

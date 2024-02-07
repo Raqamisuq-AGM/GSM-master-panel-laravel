@@ -13,10 +13,10 @@
                     <div class="card-body">
                         <div class="user-avatar-section">
                             <div class="d-flex align-items-center flex-column">
-                                <img class="img-fluid rounded my-4" src="{{ asset('assets/img/avatars/10.png') }}"
+                                <img class="img-fluid rounded my-4" src="{{ asset('assets/img/user/' . $user[0]->avatar) }}"
                                     height="110" width="110" alt="User avatar" />
                                 <div class="user-info text-center">
-                                    <h4 class="mb-2">Violet Mendoza</h4>
+                                    <h4 class="mb-2">{{ $user[0]->first_name . ' ' . $user[0]->last_name }}</h4>
                                     {{-- <span class="badge bg-label-secondary">Author</span> --}}
                                 </div>
                             </div>
@@ -43,44 +43,91 @@
                             <ul class="list-unstyled">
                                 <li class="mb-3">
                                     <span class="fw-medium me-2">Username:</span>
-                                    <span>violet.dev</span>
+                                    <span>{{ $user[0]->user_name }}</span>
                                 </li>
                                 <li class="mb-3">
                                     <span class="fw-medium me-2">Email:</span>
-                                    <span>vafgot@vultukir.org</span>
+                                    <span>{{ $user[0]->email }}</span>
                                 </li>
                                 <li class="mb-3">
                                     <span class="fw-medium me-2">Status:</span>
-                                    <span class="badge bg-label-success">Active</span>
+                                    <span
+                                        class="badge @if ($user[0]->status == 'active') bg-label-success
+                                        @elseif($user[0]->status == 'pending')
+                                        bg-label-warning
+                                        @elseif($user[0]->status == 'suspended') bg-label-danger @endif">{{ $user[0]->status }}</span>
                                 </li>
                                 <li class="mb-3">
-                                    <span class="fw-medium me-2">Role:</span>
-                                    <span>Author</span>
+                                    <span class="fw-medium me-2">Phone:</span>
+                                    <span>{{ $user[0]->phon }}</span>
                                 </li>
                                 <li class="mb-3">
-                                    <span class="fw-medium me-2">Tax id:</span>
-                                    <span>Tax-8965</span>
+                                    <span class="fw-medium me-2">Whatsapp:</span>
+                                    <span>{{ $user[0]->Whatsapp }}</span>
                                 </li>
                                 <li class="mb-3">
-                                    <span class="fw-medium me-2">Contact:</span>
-                                    <span>(123) 456-7890</span>
+                                    <span class="fw-medium me-2">Telegram Id:</span>
+                                    <span>{{ $user[0]->telegram_id }}</span>
                                 </li>
                                 <li class="mb-3">
-                                    <span class="fw-medium me-2">Languages:</span>
-                                    <span>French</span>
+                                    <span class="fw-medium me-2">Instagram Id:</span>
+                                    <span>{{ $user[0]->ig_id }}</span>
+                                </li>
+                                <li class="mb-3">
+                                    <span class="fw-medium me-2">Linkedin Id:</span>
+                                    <span>{{ $user[0]->linkedin_id }}</span>
+                                </li>
+                                <li class="mb-3">
+                                    <span class="fw-medium me-2">Facebook Id:</span>
+                                    <span>{{ $user[0]->fb_id }}</span>
+                                </li>
+                                <li class="mb-3">
+                                    <span class="fw-medium me-2">Twitter Id:</span>
+                                    <span>{{ $user[0]->twitter_id }}</span>
+                                </li>
+                                <li class="mb-3">
+                                    <span class="fw-medium me-2">Address:</span>
+                                    <span>{{ $user[0]->address }}</span>
+                                </li>
+                                <li class="mb-3">
+                                    <span class="fw-medium me-2">State:</span>
+                                    <span>{{ $user[0]->state }}</span>
+                                </li>
+                                <li class="mb-3">
+                                    <span class="fw-medium me-2">City:</span>
+                                    <span>{{ $user[0]->city }}</span>
                                 </li>
                                 <li class="mb-3">
                                     <span class="fw-medium me-2">Country:</span>
-                                    <span>England</span>
+                                    <span>{{ $user[0]->country }}</span>
+                                </li>
+                                <li class="mb-3">
+                                    <span class="fw-medium me-2">Languages:</span>
+                                    <span>{{ $user[0]->language }}</span>
                                 </li>
                             </ul>
                             <div class="d-flex justify-content-center pt-3">
-                                <a href="javascript:;" class="btn btn-label-danger suspend-user me-2">
-                                    Suspend
-                                </a>
-                                <a href="javascript:;" class="btn btn-label-success suspend-user">
-                                    Activate
-                                </a>
+                                @if ($user[0]->status == 'active')
+                                    <a href="#" class="btn btn-label-danger suspend-user me-2" data-bs-toggle="modal"
+                                        data-bs-target="#suspendUserModal" data-category-id="{{ $user[0]->id }}"
+                                        onclick="document.getElementById('suspendUserID').value = {{ $user[0]->id }}">
+                                        Suspend
+                                    </a>
+                                @elseif($user[0]->status == 'pending')
+                                    <a href="#" class="btn btn-label-success suspend-user" href="#"
+                                        data-bs-toggle="modal" data-bs-target="#activeUser"
+                                        data-category-id="{{ $user[0]->id }}"
+                                        onclick="document.getElementById('userID').value = {{ $user[0]->id }}">
+                                        Activate
+                                    </a>
+                                @elseif($user[0]->status == 'suspended')
+                                    <a href="#" class="btn btn-label-success suspend-user" href="#"
+                                        data-bs-toggle="modal" data-bs-target="#activeUser"
+                                        data-category-id="{{ $user[0]->id }}"
+                                        onclick="document.getElementById('userID').value = {{ $user[0]->id }}">
+                                        Activate
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -91,70 +138,82 @@
 
             <!-- User Content -->
             <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
-                <!-- User Pills -->
-                <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="javascript:void(0);">
-                            <i class='bx bx-receipt me-1'></i>
-                            Licenses
-                        </a>
-                    </li>
-                </ul>
-                <!--/ User Pills -->
 
                 <!-- Project table -->
                 <div class="card mb-4">
-                    <h5 class="card-header">User's Projects List</h5>
+                    <h5 class="card-header">User's License List</h5>
                     <div class="table-responsive mb-3">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Thumb</th>
                                     <th>Product</th>
-                                    <th>Avatar</th>
-                                    <th>Full Name</th>
+                                    <th>Package</th>
+                                    <th>Created at</th>
+                                    <th>Next Due</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <span class="fw-medium">15995</span>
-                                    </td>
-                                    <td>
-                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                                                class="avatar avatar-xs pull-up" title="Lilian Fuller">
-                                                <img src="{{ asset('assets/img/avatars/5.png') }}" alt="Avatar"
-                                                    class="rounded-circle" />
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td>this is demo product</td>
-                                    <td>
-                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
-                                                class="avatar avatar-xs pull-up" title="Lilian Fuller">
-                                                <img src="{{ asset('assets/img/avatars/5.png') }}" alt="Avatar"
-                                                    class="rounded-circle" />
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td>shazib ahmed</td>
-                                    <td>
-                                        <span class="badge bg-label-primary me-1">Active</span>
-                                    </td>
-                                    <td class="d-flex">
-                                        <a href="{{ route('license.edit', ['id' => '1']) }}" style="margin-right: 15px">
-                                            <i class="bx bx-edit-alt me-1"></i>
-                                        </a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#deleteItem">
-                                            <i class="bx bx-trash me-1"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                @forelse ($user[0]->licenses as $license)
+                                    <tr>
+                                        <td>
+                                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                    data-bs-placement="top" class="avatar avatar-xs pull-up"
+                                                    title="Lilian Fuller">
+                                                    <img src="{{ asset('assets/img/product/' . $license->product->thumb) }}"
+                                                        alt="Avatar" class="rounded-circle" />
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td>{{ $license->product->title }}</td>
+                                        <td>
+                                            @if ($license->package == '1')
+                                                monthly
+                                            @elseif($license->package == '6')
+                                                half yearly
+                                            @elseif($license->package == '12')
+                                                yealy
+                                            @endif
+                                        </td>
+                                        <td>
+                                            {{ \Carbon\Carbon::parse($license->created_at)->format('d-m-y h:i A') }}
+                                        </td>
+                                        <td>
+                                            {{ \Carbon\Carbon::parse($license->next_due)->format('d-m-y h:i A') }}
+                                        </td>
+                                        <td>
+                                            <span
+                                                class="badge
+                                                @if ($license->status == 'active') bg-label-success
+                                                @elseif($license->status == 'pending')
+                                                bg-label-warning
+                                                @elseif($license->status == 'suspended')
+                                                bg-label-danger @endif }} me-1">{{ $license->status }}</span>
+                                        </td>
+                                        <td class="d-flex">
+                                            <a href="{{ route('license.edit', ['id' => $license->id]) }}"
+                                                style="margin-right: 15px">
+                                                <i class="bx bx-edit-alt me-1"></i>
+                                            </a>
+                                            <a href="{{ route('license.view', ['id' => $license->id]) }}"
+                                                style="margin-right: 15px">
+                                                <i class="bx bx-show me-1"></i>
+                                            </a>
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#deleteItem"
+                                                data-category-id="{{ $license->id }}"
+                                                onclick="document.getElementById('ItemID').value = {{ $license->id }}">
+                                                <i class="bx bx-trash me-1"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="text-center">No license found</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -163,6 +222,66 @@
             </div>
             <!--/ User Content -->
         </div>
+
+        <!-- Suspend Item Modal -->
+        <div class="modal fade" id="suspendUserModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-simple modal-enable-otp modal-dialog-centered">
+                <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="text-center mb-4">
+                            <h3 class="mb-5">Suspend this user</h3>
+                        </div>
+                        <form id="suspendUserForm" class="row g-3" method="POST"
+                            action="{{ route('user.update-status') }}">
+                            @csrf
+                            <input type="hidden" name="suspendUserID" id="suspendUserID">
+                            <input type="hidden" name="status" id="status" value="suspended">
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary me-sm-3 me-1">
+                                    Yes
+                                </button>
+                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ Suspend Item Modal -->
+
+        <!-- Active Item Modal -->
+        <div class="modal fade" id="activeUser" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-simple modal-enable-otp modal-dialog-centered">
+                <div class="modal-content p-3 p-md-5">
+                    <div class="modal-body">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="text-center mb-4">
+                            <h3 class="mb-5">Active this user</h3>
+                        </div>
+                        <form id="activeUserForm" class="row g-3" method="POST"
+                            action="{{ route('user.update-status') }}">
+                            @csrf
+                            <input type="hidden" name="userID" id="userID">
+                            <input type="hidden" name="status" id="status" value="active">
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary me-sm-3 me-1">
+                                    Yes
+                                </button>
+                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ Active Item Modal -->
 
         <!-- Delete Item Modal -->
         <div class="modal fade" id="deleteItem" tabindex="-1" aria-hidden="true">
@@ -173,7 +292,10 @@
                         <div class="text-center mb-4">
                             <h3 class="mb-5">Delete this item</h3>
                         </div>
-                        <form id="deleteItemForm" class="row g-3" onsubmit="return false">
+                        <form id="deleteItemForm" class="row g-3" method="POST"
+                            action="{{ route('license.delete') }}">
+                            @csrf
+                            <input type="hidden" name="ItemID" id="ItemID">
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-primary me-sm-3 me-1">
                                     Yes

@@ -64,22 +64,20 @@
                                     <span class="app-brand-text demo text-body fw-bold">Sneat</span>
                                 </div>
                                 <p class="mb-1">
-                                    Office 149, 450 South Brand Brooklyn
+                                    {{ $company[0]->address }}
                                 </p>
-                                <p class="mb-1">San Diego County, CA 91905, USA</p>
+                                <p class="mb-1">{{ $company[0]->city . ' ' . $company[0]->country }}</p>
                                 <p class="mb-0">
-                                    +1 (123) 456 7891, +44 (876) 543 2198
+                                    {{ $company[0]->phon }}
                                 </p>
                             </div>
                             <div>
-                                <h4>Invoice #3492</h4>
+                                <h4>Invoice #{{ $invoice[0]->invoice_id }}</h4>
                                 <div class="mb-2">
                                     <span class="me-1">Date Issues:</span>
-                                    <span class="fw-medium">25/08/2020</span>
-                                </div>
-                                <div>
-                                    <span class="me-1">Date Due:</span>
-                                    <span class="fw-medium">29/08/2020</span>
+                                    <span class="fw-medium">
+                                        {{ \Carbon\Carbon::parse($invoice[0]->created_at)->format('d-m-y h:i A') }}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -89,88 +87,34 @@
                         <div class="row p-sm-3 p-0">
                             <div class="col-xl-6 col-md-12 col-sm-5 col-12 mb-xl-0 mb-md-4 mb-sm-0 mb-4">
                                 <h6 class="pb-2">Invoice To:</h6>
-                                <p class="mb-1">Thomas shelby</p>
-                                <p class="mb-1">Shelby Company Limited</p>
-                                <p class="mb-1">Small Heath, B10 0HF, UK</p>
-                                <p class="mb-1">718-986-6062</p>
-                                <p class="mb-0">peakyFBlinders@gmail.com</p>
-                            </div>
-                            <div class="col-xl-6 col-md-12 col-sm-7 col-12">
-                                <h6 class="pb-2">Bill To:</h6>
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td class="pe-3">Total Due:</td>
-                                            <td>$12,110.55</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="pe-3">Bank name:</td>
-                                            <td>American Bank</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="pe-3">Country:</td>
-                                            <td>United States</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="pe-3">IBAN:</td>
-                                            <td>ETD95476213874685</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="pe-3">SWIFT code:</td>
-                                            <td>BR91905</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <p class="mb-1">{{ $invoice[0]->user->first_name . ' ' . $invoice[0]->user->last_name }}
+                                </p>
+                                <p class="mb-1">{{ $invoice[0]->product->title }}</p>
+                                <p class="mb-1">{{ $invoice[0]->user->address }}</p>
+                                <p class="mb-1">{{ $invoice[0]->user->phon }}</p>
+                                <p class="mb-0">{{ $invoice[0]->user->email }}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table border-top m-0">
+                    <div class="table-responsive mb-3">
+                        <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Item</th>
-                                    <th>Description</th>
-                                    <th>Cost</th>
+                                    <th colspan="3">Item</th>
                                     <th>Qty</th>
                                     <th>Price</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="text-nowrap">Vuexy Admin Template</td>
-                                    <td class="text-nowrap">HTML Admin Template</td>
-                                    <td>$32</td>
+                                    <td colspan="3" class="text-nowrap">
+                                        {{ $invoice[0]->product->title }}
+                                    </td>
                                     <td>1</td>
-                                    <td>$32.00</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-nowrap">Frest Admin Template</td>
-                                    <td class="text-nowrap">Angular Admin Template</td>
-                                    <td>$22</td>
-                                    <td>1</td>
-                                    <td>$22.00</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-nowrap">Apex Admin Template</td>
-                                    <td class="text-nowrap">HTML Admin Template</td>
-                                    <td>$17</td>
-                                    <td>2</td>
-                                    <td>$34.00</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-nowrap">Robust Admin Template</td>
-                                    <td class="text-nowrap">React Admin Template</td>
-                                    <td>$66</td>
-                                    <td>1</td>
-                                    <td>$66.00</td>
+                                    <td>${{ $invoice[0]->product->price }}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" class="align-top px-4 py-5">
-                                        <p class="mb-2">
-                                            <span class="me-1 fw-medium">Salesperson:</span>
-                                            <span>Alfie Solomons</span>
-                                        </p>
-                                        <span>Thanks for your business</span>
                                     </td>
                                     <td class="text-end px-4 py-5">
                                         <p class="mb-2">Subtotal:</p>
@@ -179,25 +123,14 @@
                                         <p class="mb-0">Total:</p>
                                     </td>
                                     <td class="px-4 py-5">
-                                        <p class="fw-medium mb-2">$154.25</p>
+                                        <p class="fw-medium mb-2">${{ $invoice[0]->product->price }}</p>
                                         <p class="fw-medium mb-2">$00.00</p>
-                                        <p class="fw-medium mb-2">$50.00</p>
-                                        <p class="fw-medium mb-0">$204.25</p>
+                                        <p class="fw-medium mb-2">$00.00</p>
+                                        <p class="fw-medium mb-0">${{ $invoice[0]->product->price }}</p>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <span class="fw-medium">Note:</span>
-                                <span>It was a pleasure working with you and your team.
-                                    We hope you will keep us in mind for future
-                                    freelance projects. Thank You!</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -252,8 +185,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="invoice-message" class="form-label">Message</label>
-                        <textarea class="form-control" name="invoice-message" id="invoice-message" cols="3"
-                            rows="8">
+                        <textarea class="form-control" name="invoice-message" id="invoice-message" cols="3" rows="8">
                             Dear Queen Consolidated,
                             Thank you for your business, always a pleasure to work with you!
                             We have generated a new invoice in the amount of $95.59

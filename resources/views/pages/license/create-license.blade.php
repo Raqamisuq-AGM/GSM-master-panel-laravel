@@ -98,6 +98,11 @@
                                         <div class="text-danger mt-2">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <div class="mb-3 col-md-12">
+                                    <label for="domain" class="form-label">Domain</label>
+                                    <input class="form-control" type="text" id="domain" name="domain" value=""
+                                        placeholder="example.com" />
+                                </div>
                                 <!-- Status -->
                                 <div class="mb-3 col ecommerce-select2-dropdown">
                                     <label class="form-label mb-1" for="status-org">Status

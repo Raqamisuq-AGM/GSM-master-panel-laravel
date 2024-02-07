@@ -1,40 +1,106 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<html lang="en" class="light-style   layout-menu-fixed     customizer-hide" dir="ltr" data-theme="theme-default"
+    data-assets-path="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo/assets/"
+    data-base-url="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1"
+    data-framework="laravel" data-template="blank-menu-theme-default-light">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <title>@yield('title')</title>
+    <!-- laravel CRUD token -->
+    <meta name="csrf-token" content="rcCFW4L2PC94SoUDGLm8PbO1j3tAMXx2J8uBLwXM">
+    <!-- Canonical SEO -->
+    <link rel="canonical" href="https://themeselection.com/item/sneat-bootstrap-laravel-admin-template/">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
 
-    <!-- Google Font: Source Sans Pro -->
+
+    <!-- Include Styles -->
+    <!-- $isFront is used to append the front layout styles only on the front layout otherwise the variable will be blank -->
+    <!-- BEGIN: Theme CSS-->
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-    @yield('styles')
+        href="{{ asset('assets/vendor/fonts/boxicons.css%3Fid=87122b3a3900320673311cebdeb618da.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('assets/vendor/fonts/fontawesome.css%3Fid=a2997cb6a1c98cc3c85f4c99cdea95b5.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('assets/vendor/fonts/flag-icons.css%3Fid=121bcc3078c6c2f608037fb9ca8bce8d.css') }}" />
+    <!-- Core CSS -->
+    <link rel="stylesheet"
+        href="{{ asset('assets/vendor/css/rtl/core.css%3Fid=55b2a9dfaa009c41df62ca8d16e913a8.css') }}"
+        class="template-customizer-core-css" />
+    <link rel="stylesheet"
+        href="{{ asset('assets/vendor/css/rtl/theme-default.css%3Fid=9182924a7b965439eca5e189ba43eba1.css') }}"
+        class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/demo.css%3Fid=69dfc5e48fce5a4ff55ff7b593cdf93d.css') }}" />
+    <!-- Vendors CSS -->
+    <link rel="stylesheet"
+        href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css%3Fid=73d641bb8db2475ecafc6c68461ed01b.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('assets/vendor/libs/typeahead-js/typeahead.css%3Fid=de339ead5e9c9e36f12e46cbef7aaffd.css') }}" />
+
+    <!-- Vendor Styles -->
+    <!-- Vendor -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/@form-validation/umd/styles/index.min.css') }}" />
+
+
+    <!-- Page Styles -->
+    <!-- Page -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}">
+
+    <!-- Include Scripts for customizer, helper, analytics, config -->
+    <!-- $isFront is used to append the front layout scriptsIncludes only on the front layout otherwise the variable will be blank -->
+    <!-- laravel style -->
+    <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+    <!-- beautify ignore:start -->
+  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+  <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
+  <script src="{{ asset('assets/vendor/js/template-customizer.js') }}"></script>
+
+  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+  <script src="{{ asset('assets/js/config.js') }}"></script>
+
 </head>
 
-<body class="hold-transition login-page">
-    <div class="login-box">
-        @yield('content')
-    </div>
-    <!-- ./wrapper -->
+<body>
 
-    <!-- jQuery -->
-    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+@yield('content')
 
-    @yield('scripts')
+
+
+  <!-- Include Scripts -->
+  <!-- $isFront is used to append the front layout scripts only on the front layout otherwise the variable will be blank -->
+  <!-- BEGIN: Vendor JS-->
+<script src="{{ asset('assets/vendor/libs/jquery/jquery.js%3Fid=0f7eb1f3a93e3e19e8505fd8c175925a') }}"></script>
+<script src="{{ asset('assets/vendor/libs/popper/popper.js%3Fid=baf82d96b7771efbcc05c3b77135d24c') }}"></script>
+<script src="{{ asset('assets/vendor/js/bootstrap.js%3Fid=4648227467e3fd3f4cf976cfb0e43aea') }}"></script>
+<script
+    src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js%3Fid=44b8e955848dc0c56597c09f6aebf89a') }}">
+</script>
+<script src="{{ asset('assets/vendor/libs/hammer/hammer.js%3Fid=0a520e103384b609e3c9eb3b732d1be8') }}"></script>
+<script src="{{ asset('assets/vendor/libs/typeahead-js/typeahead.js%3Fid=f6bda588c16867a6cc4158cb4ed37ec6') }}">
+</script>
+<!-- END: Page Vendor JS-->
+<!-- BEGIN: Theme JS-->
+<script src="{{ asset('assets/js/main.js%3Fid=6bea3f2e092d5fe7327c226f3242f31b') }}"></script>
+
+<!-- END: Theme JS-->
+<!-- Pricing Modal JS-->
+<!-- END: Pricing Modal JS-->
+<!-- BEGIN: Page JS-->
+<script src="assets/js/pages-auth.js"></script>
+<!-- END: Page JS-->
+
+</body>
 
 </html>
