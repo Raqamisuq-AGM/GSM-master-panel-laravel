@@ -24,8 +24,6 @@ class SettingController extends Controller
     //Update Company setting
     public function updateCompany(Request $request)
     {
-
-        // dd($request->all());
         $company = Company::findOrFail(1);
 
         if ($request->hasFile('logo')) {

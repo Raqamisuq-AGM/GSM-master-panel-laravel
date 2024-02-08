@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('slider2')->nullable();
             $table->string('slider3')->nullable();
             $table->string('slider4')->nullable();
+            $table->string('file')->nullable();
             $table->string('status')->nullable();
             $table->foreign('category_id')
                 ->references('id')

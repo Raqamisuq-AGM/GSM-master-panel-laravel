@@ -8,6 +8,7 @@ use App\Models\Product\Product;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class LicenseController extends Controller
 {
@@ -63,6 +64,9 @@ class LicenseController extends Controller
                 break;
         }
 
+        // Generate a unique license code
+        $licenseCode = $this->generateUniqueLicenseCode();
+
         // Update the subcategory in the database
         $license = new License();
         $license->status = $request->input('status');
@@ -72,6 +76,7 @@ class LicenseController extends Controller
         $license->next_due = $nextDue;
         $license->package = $request->input('package');
         $license->domain_reg = $request->input('domain');
+        $license->license_code = $licenseCode;
         $license->save();
 
         toastr()->success('License created successfully!', 'success', ['timeOut' => 5000, 'closeButton' => true]);
@@ -158,5 +163,15 @@ class LicenseController extends Controller
 
         toastr()->success('License deleted successfully!', 'success', ['timeOut' => 5000, 'closeButton' => true]);
         return redirect()->route('license.all');
+    }
+
+    // Function to generate a unique license code
+    private function generateUniqueLicenseCode()
+    {
+        do {
+            $licenseCode = Str::random(3) . '*' . Str::random(3) . '#' . Str::random(4) . '26';
+        } while (License::where('license_code', $licenseCode)->exists());
+
+        return $licenseCode;
     }
 }
