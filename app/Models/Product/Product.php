@@ -24,6 +24,7 @@ class Product extends Model
         'slider2',
         'slider3',
         'slider4',
+        'file',
         'status',
     ];
 

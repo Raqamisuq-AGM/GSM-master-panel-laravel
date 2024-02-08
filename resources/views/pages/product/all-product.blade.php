@@ -14,7 +14,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                {{-- <th>ID</th> --}}
                                 <th>Thumb</th>
                                 <th>Title</th>
                                 <th>Category</th>
@@ -26,9 +26,9 @@
                         <tbody>
                             @forelse ($products as $product)
                                 <tr>
-                                    <td>
+                                    {{-- <td>
                                         <span class="fw-medium">15995</span>
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                             <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
@@ -39,17 +39,20 @@
                                         </ul>
 
                                     </td>
-                                    <td>this is demo product</td>
-                                    <td>demo</td>
-                                    <td>sub demo</td>
+                                    <td>{{ $product->title }}</td>
+                                    <td>{{ $product->category->category }}</td>
+                                    <td>{{ $product->subCategory->sub_category }}</td>
                                     <td>
                                         <span class="badge bg-label-primary me-1">Active</span>
                                     </td>
                                     <td class="d-flex">
-                                        <a href="{{ route('product.edit', ['id' => '1']) }}" style="margin-right: 15px">
+                                        <a href="{{ route('product.edit', ['id' => $product->id]) }}"
+                                            style="margin-right: 15px">
                                             <i class="bx bx-edit-alt me-1"></i>
                                         </a>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#deleteItem">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#deleteItem"
+                                            data-category-id="{{ $product->id }}"
+                                            onclick="document.getElementById('ItemID').value = {{ $product->id }}">
                                             <i class="bx bx-trash me-1"></i>
                                         </a>
                                     </td>
@@ -75,7 +78,9 @@
                         <div class="text-center mb-4">
                             <h3 class="mb-5">Delete this item</h3>
                         </div>
-                        <form id="deleteItemForm" class="row g-3" onsubmit="return false">
+                        <form id="deleteItemForm" class="row g-3" method="POST" action="{{ route('product.delete') }}">
+                            @csrf
+                            <input type="hidden" name="ItemID" id="ItemID">
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-primary me-sm-3 me-1">
                                     Yes

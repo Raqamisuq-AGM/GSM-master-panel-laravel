@@ -43,18 +43,8 @@
                                 <!-- Description -->
                                 <div>
                                     <label class="form-label">Meta Description</label>
-                                    <div class="form-control p-0 pt-1">
-                                        <div class="comment-toolbar border-0 border-bottom">
-                                            <div class="d-flex justify-content-start">
-                                                <span class="ql-formats me-0">
-                                                    <button class="ql-bold"></button>
-                                                    <button class="ql-italic"></button>
-                                                    <button class="ql-underline"></button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="comment-editor border-0 pb-4" id="ecommerce-category-description"></div>
-                                    </div>
+                                    <textarea class="form-control" aria-label="With textarea" data-gramm="false" wt-ignore-input="true"
+                                        data-quillbot-element="BRMw-EL30SE9sNAVLeCFM" name="meta_description" value="{{ old('meta_description') }}">{{ $company[0]->meta_description }}</textarea>
                                 </div>
                                 <!-- Tags -->
                                 <div class="mb-3 mt-3">

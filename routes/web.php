@@ -57,7 +57,7 @@ Route::middleware('auth:admins')->group(function () {
         Route::get('/add', [ProductController::class, 'add'])->name('product.add');
         Route::post('/store', [ProductController::class, 'store'])->name('product.store');
         Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
-        Route::post('/update', [ProductController::class, 'update'])->name('product.update');
+        Route::post('/update/{id}', [ProductController::class, 'update'])->name('product.update');
         Route::post('/delete', [ProductController::class, 'delete'])->name('product.delete');
     });
     // License Route
@@ -115,6 +115,8 @@ Route::middleware('auth:admins')->group(function () {
     // Notification Route
     Route::get('/notifications/mark-all-as-read', [SettingController::class, 'markAllAsRead'])->name('notifications.mark-all-as-read');
     Route::get('/notifications/all', [SettingController::class, 'allNotification'])->name('notifications.all');
+    // CKEditor file upload Route
+    Route::post('/ckeditor-upload', [SettingController::class, 'CKEditorFileUpload'])->name('ckeditor.file');
     // Logout Route
     Route::get('/logout', [SettingController::class, 'logout'])->name('logout');
 });
